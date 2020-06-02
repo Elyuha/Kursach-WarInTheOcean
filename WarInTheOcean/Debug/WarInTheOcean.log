@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\евкадий\source\repos\test_sfml\test_sfml\source.cpp(59): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\евкадий\source\repos\test_sfml\test_sfml\source.cpp(69): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  test_sfml.vcxproj -> C:\Users\Евкадий\source\repos\test_sfml\Debug\test_sfml.exe
