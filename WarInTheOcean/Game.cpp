@@ -1,6 +1,8 @@
-
+#pragma comment(lib, "ws2_32.lib")
+#include <winsock2.h>
 #include "Game.h"
 
+#pragma warning(disable: 4996)
 
 Game::Game()
 {
@@ -14,9 +16,72 @@ Game::Game()
             table_enemy[i][j] = 'n';
         }
 
+    DLLVersion = MAKEWORD(2, 1);
+    if (WSAStartup(DLLVersion, &wsaData) != 0) {
+        std::cout << "Error" << std::endl;
+        exit(1);
+    }
+
+    int sizeofaddr = sizeof(addr);
+    addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    addr.sin_port = htons(10);
+    addr.sin_family = AF_INET;
+
+    SOCKET sListen = socket(AF_INET, SOCK_STREAM, NULL);
+    bind(sListen, (SOCKADDR*)&addr, sizeof(addr));
+    listen(sListen, SOMAXCONN);
+    newConnection = accept(sListen, (SOCKADDR*)&addr, &sizeofaddr);
+
+    if (newConnection == 0) {
+            std::cout << "Error #2\n";
+            system("pause");
+        }
+    else {
+        std::cout << "Client connected!\n";
+        system("pause");
+        }
+
 }
 
+char Game::attack(){
+    char cij[2];
+    cij[0] = ij[0] + '0';
+    cij[1] = ij[1] + '0';
+    send(newConnection, cij, sizeof(cij), NULL);
+    char a;
+    recv(newConnection, (char*)&a, sizeof(a), NULL);
 
+    if(a == 'y'){
+        table_enemy[ij[0]][ij[1]] = 'x';
+    }
+    else table_enemy[ij[0]][ij[1]] = 'o';
+    char b;
+    recv(newConnection, (char*)&b, sizeof(b), NULL);
+    if(b == 'w')
+        return 'w';
+    a = prov();
+    return a;
+}
+
+char Game::prov(){
+    char a;
+    char cij[2];
+    recv(newConnection, cij, sizeof(cij), NULL);
+    ij[0] = cij[0] - '0';
+    ij[1] = cij[1] - '0';
+    if(table_player[ij[0]][ij[1]] == 'k'){
+        a = 'y';
+        ships--;
+    }
+    else
+        a = 'n';
+    send(newConnection, (char*)&a, sizeof(a), NULL);
+    if(ships == 0){
+        win = 'w';
+    }
+    send(newConnection, (char*)&win, sizeof(win), NULL);
+    return a;
+}
 
 void Game::game(){
     system("CLS");
@@ -25,6 +90,14 @@ void Game::game(){
     print1();
     cout << endl;
     print2();
+    while(win != 't'){
+        cout << "choise position" << endl;
+        cin >> ij[0];
+        cin >> ij[1];
+        attack();
+        print1();
+        print2();
+    }
 
     system("pause");
 }
@@ -171,7 +244,7 @@ bool Game::checkb(int i, int j){
         return false;
 }
 
-bool Game::check1(int i, int j){ //Проверка на возможность поставить не задевая кораблии по диоганали
+bool Game::check1(int i, int j){ 
     if(i == 0 && j == 0) {
         if(table_player[i+1][j+1] != 'k')
             return true;
@@ -229,7 +302,7 @@ bool Game::check1(int i, int j){ //Проверка на возможность 
 
 }
 
-bool Game::check2(int i, int j){ //Проверка на наличие других кораблей по горизонтали и вертикали
+bool Game::check2(int i, int j){ 
     if(table_player[i][j] != '-')
         return true;
     else
