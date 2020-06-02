@@ -43,45 +43,69 @@ Game::Game()
 
 }
 
-char Game::attack(){
-    char cij[2];
-    cij[0] = ij[0] + '0';
-    cij[1] = ij[1] + '0';
-    send(newConnection, cij, sizeof(cij), NULL);
-    char a;
-    recv(newConnection, (char*)&a, sizeof(a), NULL);
+char Game::attack(int i, int j) {
+	char b;
+	char a;
+	
+	char cij[2];
+	ij[0] = i;
+	ij[1] = j;
+	if (flag == false) {
+		cij[1] = ij[0] + 48;
+		cij[0] = ij[1] + 48;
+		send(newConnection, cij, sizeof(cij), NULL);
+		recv(newConnection, (char*)&a, sizeof(a), NULL);
 
-    if(a == 'y'){
-        table_enemy[ij[0]][ij[1]] = 'x';
-    }
-    else table_enemy[ij[0]][ij[1]] = 'o';
-    char b;
-    recv(newConnection, (char*)&b, sizeof(b), NULL);
-    if(b == 'w')
-        return 'w';
-    a = prov();
-    return a;
+		if (a == 'y') {
+			table_enemy[ij[0]][ij[1]] = 'x';
+			flag = false;
+		}
+		else table_enemy[ij[0]][ij[1]] = 'o';
+		reDraw();
+		recv(newConnection, (char*)&b, sizeof(b), NULL);
+		if (b == 'w') {
+			win = 'w';
+			return b;
+		}
+	}
+	else {
+		cij[0] = 'a';
+		cij[1] = 'a';
+		send(newConnection, cij, sizeof(cij), NULL);
+	}
+	a = prov();
+	return a;
 }
 
-char Game::prov(){
-    char a;
-    char cij[2];
-    recv(newConnection, cij, sizeof(cij), NULL);
-    ij[0] = cij[0] - '0';
-    ij[1] = cij[1] - '0';
-    if(table_player[ij[0]][ij[1]] == 'k'){
-        a = 'y';
-        ships--;
-    }
-    else
-        a = 'n';
-    send(newConnection, (char*)&a, sizeof(a), NULL);
-    if(ships == 0){
-        win = 'w';
-    }
-    send(newConnection, (char*)&win, sizeof(win), NULL);
-    return a;
+char Game::prov() {
+	char a = 'z';
+	char cij[2];
+	recv(newConnection, cij, sizeof(cij), NULL);
+	if (cij[0] != 'a' && cij[1] != 'a') {
+		ij[1] = cij[0] - 48;
+		ij[0] = cij[1] - 48;
+		if (table_player[ij[0]][ij[1]] == 'k') {
+			a = 'y';
+			flag = true;
+			yach--;
+			table_player[ij[0]][ij[1]] = 'Q';
+		}
+		else {
+			a = 'n';
+			flag = false;
+			table_player[ij[0]][ij[1]] = 'o';
+		}
+		reDraw();
+		send(newConnection, (char*)&a, sizeof(a), NULL);
+		if (yach == 0) {
+			win = 'w';
+		}
+		a = win;
+		send(newConnection, (char*)&win, sizeof(win), NULL);
+	}
+	return a;
 }
+
 
 void Game::game(){
     system("CLS");
@@ -302,7 +326,7 @@ bool Game::check1(int i, int j){
 
 }
 
-bool Game::check2(int i, int j){ 
+bool Game::check2(int i, int j){
     if(table_player[i][j] != '-')
         return true;
     else
