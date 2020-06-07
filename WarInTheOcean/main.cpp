@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+п»ї#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
@@ -191,7 +191,7 @@ int main()
 		switch (pos)
 		{
 		case 'a':
-			info = "Ожидание игрока...";
+			info = "РћР¶РёРґР°РЅРёРµ РёРіСЂРѕРєР°...";
 			text_info.setString(info);
 
 			inf_1 = "";
@@ -214,7 +214,7 @@ int main()
 			text_5.setPosition(744, 279);
 			text_5.setString(inf_5);
 
-			que = "ожидайте";
+			que = "РѕР¶РёРґР°Р№С‚Рµ";
 			text_que.setPosition(620, 425);
 			text_que.setString(que);
 
@@ -222,45 +222,45 @@ int main()
 			text.setPosition(923, 279);
 			break;
 		case 'b':
-			info = "Кол-во кораблей:";
+			info = "РљРѕР»-РІРѕ РєРѕСЂР°Р±Р»РµР№:";
 			text_info.setString(info);
 
 			zk = NMC.get_val(0);
 			zn = zk + 48;
-			inf_1 = "1 палуба: ";
+			inf_1 = "1 РїР°Р»СѓР±Р°: ";
 			inf_1 =+ zn;
 			text_1.setPosition(744, 91);
 			text_1.setString(inf_1);
 
 			zk = NMC.get_val(1);
 			zn = zk + 48;
-			inf_2 = "2 палубы: ";
+			inf_2 = "2 РїР°Р»СѓР±С‹: ";
 			inf_2 =+ zn;
 			text_2.setPosition(744, 138);
 			text_2.setString(inf_2);
 
 			zk = NMC.get_val(2);
 			zn = zk + 48;
-			inf_3 = "3 палубы: ";
+			inf_3 = "3 РїР°Р»СѓР±С‹: ";
 			inf_3 =+ zn;
 			text_3.setPosition(744, 185);
 			text_3.setString(inf_3);
 
 			zk = NMC.get_val(3);
 			zn = zk + 48;
-			inf_4 = "4 палубы: ";
+			inf_4 = "4 РїР°Р»СѓР±С‹: ";
 			inf_4 =+ zn;
 			text_4.setPosition(744, 232);
 			text_4.setString(inf_4);
 
-			inf_5 = "Ввод:";
+			inf_5 = "Р’РІРѕРґ:";
 			text_5.setPosition(744, 279);
 			text_5.setString(inf_5);
 
 			if (res == false) {
-				que = "не, давай заного";
+				que = "РЅРµ, РґР°РІР°Р№ Р·Р°РЅРѕРіРѕ";
 			}
-			que = "выберите корабль\n(введите кол-во палуб\n и нажмите enter)";
+			que = "РІС‹Р±РµСЂРёС‚Рµ РєРѕСЂР°Р±Р»СЊ\n(РІРІРµРґРёС‚Рµ РєРѕР»-РІРѕ РїР°Р»СѓР±\n Рё РЅР°Р¶РјРёС‚Рµ enter)";
 			text_que.setPosition(620, 425);
 			text_que.setString(que);
 
@@ -268,7 +268,7 @@ int main()
 			text.setPosition(923, 279);
 			break;
 		case 'c':
-			info = "Куда поставить?!";
+			info = "РљСѓРґР° РїРѕСЃС‚Р°РІРёС‚СЊ?!";
 			text_info.setString(info);
 
 			inf_1 = "";
@@ -276,7 +276,7 @@ int main()
 
 			zk = NMC.get_sh();
 			zn = zk + 48;
-			inf_2 = "Осталось клеток: ";
+			inf_2 = "РћСЃС‚Р°Р»РѕСЃСЊ РєР»РµС‚РѕРє: ";
 			inf_2 += zn;
 			text_2.setPosition(744, 138);
 			text_2.setString(inf_2);
@@ -288,13 +288,13 @@ int main()
 			text_4.setString(inf_4);
 
 			if (res == false) {
-				que = "не, давай заного";
+				que = "РЅРµ, РґР°РІР°Р№ Р·Р°РЅРѕРіРѕ";
 			}
-			que = "выберите позицию";
+			que = "РІС‹Р±РµСЂРёС‚Рµ РїРѕР·РёС†РёСЋ";
 			text_que.setPosition(620, 435);
 			text_que.setString(que);
 
-			inf_5 = "Ввод:";
+			inf_5 = "Р’РІРѕРґ:";
 			text_5.setPosition(744, 279);
 			text_5.setString(inf_5);
 
@@ -302,7 +302,7 @@ int main()
 			text.setPosition(923, 279);
 			break;
 		case 'd':
-			info = "Куда стрелять?!\n*голосом стрелка\n из warcraft3";
+			info = "РљСѓРґР° СЃС‚СЂРµР»СЏС‚СЊ?!\n*РіРѕР»РѕСЃРѕРј СЃС‚СЂРµР»РєР°\n РёР· warcraft3";
 			text_info.setString(info);
 
 			inf_1 = "";
@@ -318,13 +318,13 @@ int main()
 			text_4.setString(inf_4);
 
 			if (res == false) {
-				que = "не, давай заного";
+				que = "РЅРµ, РґР°РІР°Р№ Р·Р°РЅРѕРіРѕ";
 			}
-			que = "выберите позицию\nи ожидайте";
+			que = "РІС‹Р±РµСЂРёС‚Рµ РїРѕР·РёС†РёСЋ\nРё РѕР¶РёРґР°Р№С‚Рµ";
 			text_que.setPosition(620, 435);
 			text_que.setString(que);
 
-			inf_5 = "Ввод:";
+			inf_5 = "Р’РІРѕРґ:";
 			text_5.setPosition(744, 279);
 			text_5.setString(inf_5);
 
@@ -348,13 +348,13 @@ int main()
 		
 		if (NMC.game.get_win() == 'w') {
 			if (NMC.game.get_yach() != 0) {
-				info = "Победа!!!";
+				info = "РџРѕР±РµРґР°!!!";
 				endg.setPosition(340, 360);
 				endg.setString(info);
 
 			}
 			else {
-				info = "Смэрть";
+				info = "РЎРјСЌСЂС‚СЊ";
 				endg.setPosition(340, 360);
 				endg.setString(info);
 			}
