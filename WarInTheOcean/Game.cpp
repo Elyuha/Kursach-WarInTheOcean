@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+
 	ij[0] = 0;
 	ij[1] = 0;
 	yach = 1;
